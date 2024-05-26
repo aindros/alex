@@ -1,0 +1,9 @@
+BUSYBOX_DIR = busybox
+
+busybox: ${BUSYBOX_DIR}/_install
+	@echo Busybox: build is completed.
+
+${BUSYBOX_DIR}/_install:
+	cd ${BUSYBOX_DIR} && make distclean defconfig
+	sed -i 's|.*CONFIG_STATIC[^_].*|CONFIG_STATIC=y|' ${BUSYBOX_DIR}/.config
+	cd ${BUSYBOX_DIR} && make busybox install
