@@ -1,0 +1,9 @@
+linux: kernel.gz
+	@echo Linux: build is completed.
+
+kernel.gz: kernel/arch/x86_64/boot/bzImage
+	@cp kernel/arch/x86_64/boot/bzImage $@
+
+kernel/arch/x86_64/boot/bzImage:
+	@cd kernel && make mrproper defconfig bzImage
+
