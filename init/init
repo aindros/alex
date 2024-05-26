@@ -6,7 +6,10 @@ mount -t devtmpfs none /dev
 mount -t proc     none /proc
 mount -t sysfs    none /sys
 
+for s in $(find /etc/init -name '*.service'); do
+	$s
+done
+
 cat /etc/banner.txt
 
 setsid /bin/cttyhack /bin/sh
-
