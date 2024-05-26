@@ -12,9 +12,9 @@ rootfs.gz: initrd
 initrd:
 	@mkdir -p $@
 	@cp -R busybox/_install/* initrd/
-	@cp -R etc initrd/
 	@rm initrd/linuxrc
 	@cd init && make
+	@cd udhcpc && make
 	@echo initrd: creation is completed.
 
 clean-all: clean

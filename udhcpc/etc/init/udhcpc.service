@@ -1,0 +1,7 @@
+#!/bin/sh
+
+for NETDEV in /sys/class/net/* ; do
+	echo "Found network device ${NETDEV##*/}"
+	ip link set ${NETDEV##*/} up
+	[ ${NETDEV##*/} != lo ] && udhcpc -b -i ${NETDEV##*/} -s /usr/share/udhcp/default.script
+done
