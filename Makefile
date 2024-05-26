@@ -18,10 +18,10 @@ initrd:
 	@echo initrd: creation is completed.
 
 clean-all: clean
-	rm -rf kernel.gz syslinux*
+	rm -rf syslinux*
 
 clean:
-	rm -rf live* *.iso initrd* rootfs.gz
+	rm -rf live* *.iso initrd* rootfs.gz kernel.gz
 
 run-image:
 	@scripts/qemu64.sh
