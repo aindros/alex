@@ -1,7 +1,8 @@
 INITRD=../initrd
 
-all:
-	cp init        ${INITRD}
-	cp banner.txt  ${INITRD}
+all: ${INITRD}/etc
 	@mkdir ${INITRD}/dev ${INITRD}/proc ${INITRD}/sys
+	cp init       ${INITRD}/
 
+${INITRD}/etc:
+	@cp -r etc $@
