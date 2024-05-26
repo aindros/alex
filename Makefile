@@ -14,9 +14,7 @@ initrd:
 	@cp -R busybox/_install/* initrd/
 	@cp -R etc initrd/
 	@rm initrd/linuxrc
-	@mkdir initrd/dev initrd/proc initrd/sys
-	@cp banner.txt $@/
-	@cp init $@/
+	@cd init && make
 	@echo initrd: creation is completed.
 
 clean-all: clean

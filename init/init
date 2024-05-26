@@ -1,0 +1,12 @@
+#!/bin/sh
+
+dmesg -n 1
+
+mount -t devtmpfs none /dev
+mount -t proc     none /proc
+mount -t sysfs    none /sys
+
+cat banner.txt
+
+setsid /bin/cttyhack /bin/sh
+
