@@ -1,1 +1,5 @@
 syslinux*
+*.gz
+initrd
+live-cd
+*.iso
