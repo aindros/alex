@@ -20,10 +20,14 @@ initrd:
 	@echo initrd: creation is completed.
 
 clean-all: clean
-	rm -rf kernel.gz
+	rm -rf kernel.gz syslinux*
 
 clean:
-	rm -rf initrd* rootfs.gz
+	rm -rf live* *.iso initrd* rootfs.gz
+
+run-image:
+	@scripts/qemu64.sh
 
 include Makefile.busybox
 include Makefile.linux
+include Makefile.syslinux

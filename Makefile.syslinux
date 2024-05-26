@@ -1,0 +1,36 @@
+SYSLINUX_VERSION=6.03
+SYSLINUX=syslinux-${SYSLINUX_VERSION}
+
+live-cd: all ${SYSLINUX}
+	mkdir -p live-cd
+	cp ${SYSLINUX}/bios/core/isolinux.bin $@/
+	cp ${SYSLINUX}/bios/com32/elflink/ldlinux/ldlinux.c32 $@/
+	echo 'default kernel.gz initrd=rootfs.gz' > $@/isolinux.cfg
+	cp kernel.gz $@/
+	cp rootfs.gz $@/
+	cd $@ && xorriso \
+		-as mkisofs \
+		-o ../alex_live.iso \
+		-b isolinux.bin \
+		-c boot.cat \
+		-no-emul-boot \
+		-boot-load-size 4 \
+		-boot-info-table \
+		./
+
+# https://wiki.syslinux.org/wiki/index.php?title=HowTos#How_to_Create_a_Bootable_USB:_For_Linux
+live-usb:
+	dd if=/dev/zero of=$@.img bs=1M count=50
+	mkfs.fat $@.img
+	syslinux $@.img
+#	fatlabel $@.img CNALINUX
+	dd conv=notrunc bs=440 count=1 if=${SYSLINUX}/bios/mbr/mbr.bin of=$@.img
+#	parted $@.img --script -- mklabel msdos
+#	parted $@.img --script -- mkpart primary
+#	parted $@.img set 1 boot on
+
+syslinux-${SYSLINUX_VERSION}: syslinux.tar.xz
+	tar xvf syslinux.tar.xz
+
+syslinux.tar.xz:
+	wget -O syslinux.tar.xz http://kernel.org/pub/linux/utils/boot/syslinux/syslinux-${SYSLINUX_VERSION}.tar.xz
