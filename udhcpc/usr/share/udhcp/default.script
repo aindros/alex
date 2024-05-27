@@ -14,3 +14,7 @@ if [ "$ip" ]; then
 	echo "Router: $router"
 fi
 
+for i in $dns ; do
+	echo "Adding DNS server $i"
+#	echo "nameserver $i" >> "$tmpfile"
+done
